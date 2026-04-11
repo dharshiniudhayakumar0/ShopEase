@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            margin: 40px 0;
+            animation: slideInUp 0.8s ease-out;
+        }
+        .contact-card {
+            background: var(--bg-secondary);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+        }
+        .contact-card.glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+        }
+        .info-item {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 35px;
+            transition: var(--transition);
+        }
+        .info-item:hover {
+            transform: translateX(10px);
+        }
+        .info-icon {
+            width: 54px;
+            height: 54px;
+            background: var(--accent-soft);
+            color: var(--accent-color);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .info-item:hover .info-icon {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 5px 15px var(--accent-soft);
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .form-group textarea {
+            height: 160px;
+            resize: vertical;
+        }
+        @media(max-width: 900px) {
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-layer-group"></i> ShopEase
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li id="auth-nav-item"><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="section-title">Get in Touch</h1>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h2>Contact Information</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 40px;">Have questions or feedback? We'd love to hear from you. Reach out through any of these channels.</p>
+                
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Our Office</h4>
+                        <p style="color: var(--text-secondary);">123 Beauty Lane, Suite 400<br>New York, NY 10001</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Phone</h4>
+                        <p style="color: var(--text-secondary);">+1 (555) 123-4567</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Email</h4>
+                        <p style="color: var(--text-secondary);">support@shopease.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <h2>Send a Message</h2>
+                <form id="contact-form" onsubmit="handleContact(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="How can we help you today?"></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; padding: 15px;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-layer-group"></i> ShopEase
+                    </a>
+                    <p>Your one-stop shop for premium quality products with an intuitive and seamless shopping experience.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="cart.html">View Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html#shipping-faq">Shipping Policy</a></li>
+                        <li><a href="faq.html#returns-faq">Returns & Exchanges</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function handleContact(e) {
+            e.preventDefault();
+            showToast('Message sent! We will get back to you soon.', 'success');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>

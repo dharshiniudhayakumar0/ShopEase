@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ShopEase - Discover top quality products ranging from electronics to fashion. Experience seamless shopping.">
+    <title>ShopEase | Modern E-commerce</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-layer-group"></i> ShopEase
+            </a>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="cart.html" class="icon-btn" title="View Cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Discover Your True<br><span>Beauty & Glow</span></h1>
+                <p class="hero-subtitle">Elevate your daily routine with our premium collection of flawless foundations, vibrant lipsticks, and nourishing skincare.</p>
+                <a href="products.html" class="btn" style="font-size: 1.1rem; padding: 15px 30px;">
+                    Shop Cosmetics <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i>
+                </a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&q=80&w=800" alt="Cosmetics Collection" onerror="this.src='https://placehold.co/800x600/ff917a/ffffff?text=ShopEase+Beauty'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Promotional Banners -->
+    <section class="promo-section">
+        <div class="container">
+            <div class="promo-grid">
+                <div class="promo-banner" onclick="window.location.href='products.html'">
+                    <div class="promo-title">Buy 3 Get 5 Free</div>
+                    <div class="promo-subtitle">Exclusive Skincare Bundle Offer. Limited time!</div>
+                </div>
+                <div class="promo-banner dark-theme" onclick="window.location.href='products.html'">
+                    <div class="promo-title">🌟 Flash Sale</div>
+                    <div class="promo-subtitle">50% Off Select Face Makeups today context!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="products-wrapper">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="product-grid" id="featured-products">
+                <!-- Products injected via JS -->
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="products.html" class="btn btn-outline" style="padding: 12px 30px;">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommended Carousel -->
+    <section class="carousel-section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="carousel-header">
+                <h2 style="font-size: 2rem;">Recommended For You</h2>
+            </div>
+            <div class="carousel-container" id="recommended-products">
+                <!-- Javascript will inject 8 products here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-layer-group"></i> ShopEase
+                    </a>
+                    <p>Your one-stop shop for premium quality products with an intuitive and seamless shopping experience.</p>
+                    <div class="social-links" style="margin-top: 20px;">
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="cart.html">View Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html#shipping-faq">Shipping Policy</a></li>
+                        <li><a href="faq.html#returns-faq">Returns & Exchanges</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="admin.html" style="opacity: 0.6; font-size: 0.8rem; margin-top: 10px; display: inline-block;">Admin Dashboard</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="script.js?v=2"></script>
+</body>
+</html>

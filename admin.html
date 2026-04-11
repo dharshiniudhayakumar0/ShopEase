@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            margin: 40px 0;
+            animation: blurIn 0.8s ease-out;
+        }
+        .admin-sidebar {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--card-shadow);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        .admin-sidebar ul li a {
+            padding: 12px 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .admin-sidebar ul li a:hover, .admin-sidebar ul li a.active {
+            background: var(--accent-soft);
+            color: var(--accent-color);
+        }
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .stat-box {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+        .stat-box::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 100px; height: 100px;
+            background: linear-gradient(135deg, transparent 50%, var(--accent-soft) 100%);
+            border-radius: 0 0 0 100%;
+        }
+        .stat-box i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+        .product-list-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            margin-top: 10px;
+        }
+        .product-list-table th {
+            padding: 15px 20px;
+            text-align: left;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        .product-list-table tr {
+            transition: var(--transition);
+        }
+        .product-list-table td {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .product-list-table td:first-child {
+            border-left: 1px solid var(--border-color);
+            border-radius: 12px 0 0 12px;
+        }
+        .product-list-table td:last-child {
+            border-right: 1px solid var(--border-color);
+            border-radius: 0 12px 12px 0;
+        }
+        .product-list-table tr:hover td {
+            background: var(--bg-primary);
+            transform: scale(1.01);
+        }
+        .admin-form-group { margin-bottom: 20px; }
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .admin-form-group input, .admin-form-group select, .admin-form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .admin-form-group input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        @media(max-width: 800px) {
+            .admin-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-layer-group"></i> ShopEase
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="admin.html" style="color: var(--accent-color);">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="section-title">Admin Dashboard</h1>
+        
+        <div class="admin-grid">
+            <div class="admin-sidebar">
+                <ul style="line-height: 2.5;">
+                    <li><a href="#" class="active" onclick="showAdminSection('overview', this)"><i class="fa-solid fa-gauge"></i> Overview</a></li>
+                    <li><a href="#" onclick="showAdminSection('products', this)"><i class="fa-solid fa-box"></i> Products Management</a></li>
+                    <li><a href="#" onclick="showAdminSection('orders', this)"><i class="fa-solid fa-cart-shopping"></i> Order Management</a></li>
+                    <li><a href="#prod-manage"><i class="fa-solid fa-users"></i> Customers</a></li>
+                    <li><a href="index.html" style="color: var(--danger-color);"><i class="fa-solid fa-right-from-bracket"></i> Exit Admin</a></li>
+                </ul>
+            </div>
+
+            <div class="admin-main">
+                <div class="admin-stats">
+                    <div class="stat-box">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                        <p style="color: var(--text-secondary);">Total Revenue</p>
+                        <h2 id="total-revenue">$12,450.00</h2>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p style="color: var(--text-secondary);">Total Orders</p>
+                        <h2 id="total-orders">158</h2>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fa-solid fa-user-group"></i>
+                        <p style="color: var(--text-secondary);">Active Users</p>
+                        <h2 id="total-users">842</h2>
+                    </div>
+                </div>
+
+                <div id="section-orders" class="admin-section d-none">
+                    <h2 style="margin-bottom: 25px;">Orders Management</h2>
+                    <div style="overflow-x: auto;">
+                        <table class="product-list-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-orders-tbody">
+                                <!-- Orders injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="section-products" class="admin-section d-none">
+                    <div id="prod-manage" class="dashboard-card" style="padding: 30px; background: var(--bg-secondary); border-radius: 12px; box-shadow: var(--card-shadow); margin-bottom: 30px;">
+                        <h2 style="margin-bottom: 20px;">Add New Product</h2>
+                        <!-- ... form remains ... -->
+                    <form id="add-product-form" onsubmit="addNewProduct(event)">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="admin-form-group">
+                                <label>Product Title</label>
+                                <input type="text" id="new-title" placeholder="Glowing Serum" required>
+                            </div>
+                            <div class="admin-form-group">
+                                <label>Category</label>
+                                <select id="new-category">
+                                    <option value="Skincare">Skincare</option>
+                                    <option value="Makeup">Makeup</option>
+                                    <option value="Foundation">Foundation</option>
+                                    <option value="Lipstick">Lipstick</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="admin-form-group">
+                                <label>Price ($)</label>
+                                <input type="number" step="0.01" id="new-price" placeholder="29.99" required>
+                            </div>
+                            <div class="admin-form-group">
+                                <label>Image URL</label>
+                                <input type="text" id="new-image" placeholder="https://source.unsplash.com/..." required>
+                            </div>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Description</label>
+                            <textarea id="new-desc" rows="3" placeholder="Describe the product..."></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="padding: 12px 30px;">Add Product</button>
+                    </form>
+                </div>
+
+                <h2 style="margin-bottom: 20px;">Existing Products</h2>
+                <table class="product-list-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-product-tbody">
+                        <!-- Products injected via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // App State
+        let localProducts = [];
+
+            await fetchAdminProducts();
+            await fetchAdminStats();            
+            // Add Reset Button to sidebar if it doesn't exist
+            const sidebar = document.querySelector('.admin-sidebar ul');
+            if (sidebar) {
+                const li = document.createElement('li');
+                li.innerHTML = '<a href="#" onclick="resetShopData()" style="color: var(--accent-color);"><i class="fa-solid fa-arrows-rotate"></i> Reset Shop Data</a>';
+                sidebar.appendChild(li);
+            }
+        });
+
+        async function fetchAdminStats() {
+            try {
+                const response = await fetch('/api/admin/stats');
+                const stats = await response.json();
+                
+                document.getElementById('total-revenue').textContent = `$${stats.revenue.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+                document.getElementById('total-orders').textContent = stats.orders;
+                document.getElementById('total-users').textContent = stats.users;
+            } catch (error) {
+                console.error("Error fetching stats:", error);
+            }
+        }
+
+        async function fetchAdminProducts() {
+            try {
+                const response = await fetch('/api/products');
+                localProducts = await response.json();
+                renderAdminProducts();
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                showToast("Failed to load products", "error");
+            }
+        }
+
+        function renderAdminProducts() {
+            const tbody = document.getElementById('admin-product-tbody');
+            tbody.innerHTML = '';
+            
+            localProducts.forEach(product => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>#${product.id}</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="${product.image}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: contain;">
+                            <span>${product.title}</span>
+                        </div>
+                    </td>
+                    <td>${product.category}</td>
+                    <td>$${product.price ? product.price.toFixed(2) : '0.00'}</td>
+                    <td>
+                        <button onclick="deleteProduct(${product.id})" style="background: none; border: none; color: var(--danger-color); cursor: pointer;"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function addNewProduct(e) {
+            e.preventDefault();
+            const productData = {
+                title: document.getElementById('new-title').value,
+                category: document.getElementById('new-category').value,
+                price: parseFloat(document.getElementById('new-price').value),
+                image: document.getElementById('new-image').value,
+                description: document.getElementById('new-desc').value
+            };
+
+            try {
+                const response = await fetch('/api/products', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(productData)
+                });
+                
+                if (response.ok) {
+                    showToast('New product added!', 'success');
+                    await fetchAdminProducts();
+                    e.target.reset();
+                } else {
+                    showToast('Failed to add product', 'error');
+                }
+            } catch (error) {
+                console.error("Error adding product:", error);
+                showToast('Server error', 'error');
+            }
+        }
+
+        async function deleteProduct(id) {
+            if(confirm('Are you sure you want to delete this product?')) {
+                try {
+                    const response = await fetch(`/api/products/${id}`, { method: 'DELETE' });
+                    if (response.ok) {
+                        showToast('Product deleted', 'error');
+                        await fetchAdminProducts();
+                    } else {
+                        showToast('Failed to delete product', 'error');
+                    }
+                } catch (error) {
+                    console.error("Error deleting product:", error);
+                    showToast('Server error', 'error');
+                }
+            }
+        }
+
+        function showAdminSection(section, el) {
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.add('d-none'));
+            document.querySelectorAll('.admin-sidebar a').forEach(a => a.classList.remove('active'));
+            
+            if(section === 'overview') {
+                document.querySelector('.admin-stats').classList.remove('d-none');
+                document.getElementById('section-products').classList.add('d-none');
+                document.getElementById('section-orders').classList.add('d-none');
+            } else {
+                document.querySelector('.admin-stats').classList.add('d-none');
+                document.getElementById('section-' + section).classList.remove('d-none');
+            }
+            
+            if(el) el.classList.add('active');
+            if(section === 'orders') fetchAdminOrders();
+        }
+
+        async function fetchAdminOrders() {
+            try {
+                const response = await fetch('/api/admin/orders'); // I'll need to add this to server.js
+                const orders = await response.json();
+                renderAdminOrders(orders);
+            } catch (error) { console.error(error); }
+        }
+
+        function renderAdminOrders(orders) {
+            const tbody = document.getElementById('admin-orders-tbody');
+            tbody.innerHTML = '';
+            orders.forEach(order => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>#${order.id}</td>
+                    <td>User ID: ${order.userId}</td>
+                    <td>${new Date(order.date).toLocaleDateString()}</td>
+                    <td>$${order.total.toFixed(2)}</td>
+                    <td>
+                        <span class="status-badge" style="padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; background: var(--accent-soft); color: var(--accent-color); font-weight: 600;">${order.status}</span>
+                    </td>
+                    <td>
+                        <select onchange="updateOrderStatus(${order.id}, this.value)" style="padding: 5px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                            <option value="Processing" ${order.status === 'Processing' ? 'selected' : ''}>Processing</option>
+                            <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                            <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                        </select>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function updateOrderStatus(id, status) {
+            try {
+                const response = await fetch(`/api/orders/${id}/status`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                if(response.ok) {
+                    showToast('Order status updated!');
+                    fetchAdminOrders();
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        function resetShopData() {
+            showToast('Reset feature not available in real DB mode. Contact Admin.', 'error');
+        }
+        window.resetShopData = resetShopData;
+    </script>
+</body>
+</html>

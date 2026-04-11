@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        .checkout-step {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+        .checkout-step h2 {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--accent-color);
+        }
+        .checkout-step h2 span {
+            background: var(--accent-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        .summary-card {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        .summary-item.total {
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            margin-top: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        @media(max-width: 900px) {
+            .checkout-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-layer-group"></i> ShopEase
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="section-title">Checkout</h1>
+        
+        <div class="checkout-grid">
+            <div class="checkout-form">
+                <!-- Step 1: Shipping -->
+                <div class="checkout-step glass-panel" style="border-radius: 12px; margin-bottom: 25px; padding: 30px;">
+                    <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 25px; color: var(--text-primary);">
+                        <span style="background: var(--accent-color); color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 0.9rem;">1</span>
+                        Shipping Information
+                    </h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: block;">First Name</label>
+                            <input type="text" id="ship-fname" placeholder="John" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                        </div>
+                        <div class="form-group">
+                            <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: block;">Last Name</label>
+                            <input type="text" id="ship-lname" placeholder="Doe" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: block;">Street Address</label>
+                        <input type="text" id="ship-address" placeholder="123 Beauty Blvd" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                    </div>
+                    <div class="form-row" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: block;">City</label>
+                            <input type="text" id="ship-city" placeholder="New York" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                        </div>
+                        <div class="form-group">
+                            <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: block;">Postal Code</label>
+                            <input type="text" id="ship-zip" placeholder="10001" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div class="checkout-step glass-panel" style="border-radius: 12px; padding: 30px;">
+                    <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 25px; color: var(--text-primary);">
+                        <span style="background: var(--accent-color); color: white; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 0.9rem;">2</span>
+                        Payment Details
+                    </h2>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: block;">Card Number</label>
+                        <div style="position: relative;">
+                            <input type="text" id="card-num" placeholder="0000 0000 0000 0000" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                            <i class="fa-solid fa-credit-card" style="position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); opacity: 0.5;"></i>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: block;">Expiry Date</label>
+                            <input type="text" id="card-exp" placeholder="MM/YY" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                        </div>
+                        <div class="form-group">
+                            <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; display: block;">CVV Code</label>
+                            <input type="password" id="card-cvv" placeholder="***" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="btn" style="width: 100%; padding: 18px; font-size: 1.2rem; font-weight: 700; border-radius: 15px; margin-top: 25px; box-shadow: 0 8px 25px var(--accent-soft);" onclick="finalizeOrder()">
+                    Complete Purchase <i class="fa-solid fa-lock" style="margin-left: 10px; font-size: 0.9rem;"></i>
+                </button>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <div class="summary-card glass-panel" style="border-radius: 15px; padding: 25px;">
+                <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">Order Summary</h3>
+                <div id="checkout-items-list" style="margin-bottom: 25px; max-height: 250px; overflow-y: auto; scrollbar-width: thin;">
+                    <!-- Items will be injected -->
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+                    <div class="summary-item" style="display: flex; justify-content: space-between; color: var(--text-secondary);">
+                        <span>Subtotal</span>
+                        <span id="subtotal-val" style="color: var(--text-primary); font-weight: 600;">$0.00</span>
+                    </div>
+                    <div class="summary-item" style="display: flex; justify-content: space-between; color: var(--text-secondary);">
+                        <span>Fast Shipping</span>
+                        <span style="color: var(--success-color); font-weight: 600;">$15.00</span>
+                    </div>
+                </div>
+                <div class="summary-total" style="border-top: 1px dashed var(--border-color); padding-top: 20px; display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">Payable Amount:</div>
+                    <div id="total-val" style="font-size: 1.8rem; font-weight: 700; color: var(--accent-color);">$0.00</div>
+                </div>
+                <div style="margin-top: 25px; text-align: center; color: var(--text-secondary); font-size: 0.8rem;">
+                    <i class="fa-solid fa-shield-check"></i> SSL Secured Checkout village.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-layer-group"></i> ShopEase
+                    </a>
+                    <p>Your one-stop shop for premium quality products with an intuitive and seamless shopping experience.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html#shipping-faq">Shipping Policy</a></li>
+                        <li><a href="faq.html#returns-faq">Returns & Exchanges</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkoutCart = JSON.parse(localStorage.getItem('shopease_cart')) || [];
+            if (checkoutCart.length === 0) {
+                window.location.href = 'products.html';
+                return;
+            }
+
+            const itemsList = document.getElementById('checkout-items-list');
+            let subtotal = 0;
+
+            checkoutCart.forEach(item => {
+                subtotal += item.price * item.quantity;
+                const div = document.createElement('div');
+                div.style.display = 'flex';
+                div.style.justifyContent = 'space-between';
+                div.style.marginBottom = '10px';
+                div.style.fontSize = '0.9rem';
+                div.innerHTML = `
+                    <span>${item.title} x${item.quantity}</span>
+                    <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                itemsList.appendChild(div);
+            });
+
+            document.getElementById('subtotal-val').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('total-val').textContent = `$${(subtotal + 15).toFixed(2)}`;
+
+            // Pre-fill user data
+            const user = JSON.parse(localStorage.getItem('shopease_user'));
+            if (user) {
+                const names = user.name.split(' ');
+                document.getElementById('ship-fname').value = names[0] || '';
+                document.getElementById('ship-lname').value = names.slice(1).join(' ') || '';
+                if (user.address) document.getElementById('ship-address').value = user.address;
+            }
+        });
+
+        async function finalizeOrder() {
+            // Validate simple fields
+            const fields = ['ship-fname', 'ship-lname', 'ship-address', 'ship-city', 'ship-zip', 'card-num', 'card-exp', 'card-cvv'];
+            for (let id of fields) {
+                if (!document.getElementById(id).value.trim()) {
+                    showToast('Please fill all fields', 'error');
+                    document.getElementById(id).style.borderColor = 'var(--danger-color)';
+                    return;
+                }
+            }
+
+            const user = JSON.parse(localStorage.getItem('shopease_user'));
+            const cartItems = JSON.parse(localStorage.getItem('shopease_cart')) || [];
+            const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            const total = subtotal + 15;
+
+            try {
+                const response = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: user ? user.id : null,
+                        items: cartItems,
+                        total: total
+                    })
+                });
+
+                if (response.ok) {
+                    localStorage.removeItem('shopease_cart');
+                    showToast('Order placed successfully!', 'success');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'profile.html';
+                    }, 2000);
+                } else {
+                    showToast('Failed to save order', 'error');
+                }
+            } catch (error) {
+                console.error("Order error:", error);
+                showToast('Server error during checkout', 'error');
+            }
+        }
+    </script>
+</body>
+</html>

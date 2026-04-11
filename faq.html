@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs | ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .faq-container {
+            max-width: 900px;
+            margin: 40px auto;
+            animation: slideInUp 0.8s ease-out;
+        }
+        .faq-item {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .faq-item:hover {
+            box-shadow: var(--card-shadow-hover);
+            border-color: var(--accent-color);
+        }
+        .faq-question {
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            background: var(--bg-secondary);
+        }
+        .faq-question:hover {
+            color: var(--accent-color);
+        }
+        .faq-answer {
+            padding: 0 30px 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        .faq-item.active .faq-answer {
+            padding: 0 30px 30px 30px;
+            max-height: 1000px; /* Large enough to fit content */
+            transition: all 0.5s cubic-bezier(1, 0, 1, 0);
+        }
+        .faq-item.active .faq-question {
+            color: var(--accent-color);
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .faq-question i {
+            transition: transform 0.4s ease;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-layer-group"></i> ShopEase
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li id="auth-nav-item"><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="section-title">Frequently Asked Questions</h1>
+        <div class="faq-container">
+            <!-- FAQ 1 -->
+            <div class="faq-item" id="shipping-faq">
+                <div class="faq-question">
+                    What is your shipping policy?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    We offer free standard shipping on all orders over $75. For orders below $75, a flat shipping fee of $15 applies. Most orders are processed within 1-2 business days and delivered within 3-5 business days.
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item" id="returns-faq">
+                <div class="faq-question">
+                    How can I return or exchange a product?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    We accept returns within 30 days of purchase. The product must be unused and in its original packaging. To initiate a return, please visit your account page or contact our support team.
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    Are your products cruelty-free?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Absolutely! We are committed to ethical beauty. All products sold on ShopEase are 100% cruelty-free and have never been tested on animals.
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do you ship internationally?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Currently, we ship within the United States and Canada. We are working diligently to expand our shipping services to more countries in the near future.
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    How do I track my order?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Once your order has shipped, you will receive an email with a tracking number and a link to the carrier's website. You can also track your order directly from your profile dashboard under "Recent Orders".
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-layer-group"></i> ShopEase
+                    </a>
+                    <p>Your one-stop shop for premium quality products with an intuitive and seamless shopping experience.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="cart.html">View Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html#shipping-faq">Shipping Policy</a></li>
+                        <li><a href="faq.html#returns-faq">Returns & Exchanges</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Handle anchors from footer
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const target = document.querySelector(hash);
+                if (target && target.classList.contains('faq-item')) {
+                    target.classList.add('active');
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

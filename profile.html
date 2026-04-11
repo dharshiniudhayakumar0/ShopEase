@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            margin: 40px 0;
+            animation: blurIn 0.8s ease-out;
+        }
+        .dashboard-sidebar {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--card-shadow);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        .dashboard-sidebar ul li a {
+            padding: 12px 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .dashboard-sidebar ul li a:hover {
+            background: var(--accent-soft);
+            color: var(--accent-color);
+        }
+        .dashboard-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .dashboard-card {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+        }
+        /* Offers Banner */
+        .offer-banner {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 20px -5px rgba(255, 133, 107, 0.4);
+        }
+        .offer-banner h3 { margin-bottom: 8px; font-size: 1.4rem; }
+        /* Order Tracker */
+        .order-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        .order-card:hover {
+            transform: scale(1.01);
+            box-shadow: var(--card-shadow);
+        }
+        .tracker {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            position: relative;
+        }
+        .tracker::before {
+            content: '';
+            position: absolute;
+            top: 17px;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background: var(--border-color);
+            z-index: 1;
+        }
+        .track-step {
+            z-index: 2;
+            text-align: center;
+            background: var(--bg-primary);
+            width: 100px;
+            padding: 0 5px;
+        }
+        .track-icon {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--border-color);
+            color: white;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 10px;
+            transition: var(--transition);
+        }
+        .track-step.active .track-icon {
+            background: var(--success-color);
+            box-shadow: 0 0 15px var(--success-color);
+        }
+        @media(max-width: 900px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .dashboard-sidebar { position: static; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-layer-group"></i> ShopEase
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li id="auth-nav-item"><a href="profile.html" style="color: var(--accent-color);">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="min-height: 70vh;">
+        <div class="dashboard-grid">
+            <div class="dashboard-sidebar">
+                <h3 id="user-name-display" style="margin-bottom: 20px;">Welcome User!</h3>
+                <ul style="line-height: 2.5;">
+                    <li><a href="#orders">My Orders</a></li>
+                    <li><a href="#wishlist">Wishlist</a></li>
+                    <li><a href="#settings">Account Settings</a></li>
+                    <li><a href="#" onclick="logoutUser()" style="color: var(--danger-color);">Logout</a></li>
+                </ul>
+            </div>
+            
+            <div class="dashboard-content">
+                <!-- Offers -->
+                <div class="offer-banner">
+                    <div>
+                        <h3>Exclusive Deal: 20% OFF Skincare!</h3>
+                        <p>Enjoy our special spring sale. Check condition details at checkout.</p>
+                    </div>
+                    <a href="products.html" class="btn" style="background: white; color: var(--accent-color) !important;">Use Code: SKIN20</a>
+                </div>
+
+                <!-- Account Settings -->
+                <div class="dashboard-card" id="settings">
+                    <h2 style="margin-bottom: 20px;">Account Settings</h2>
+                    
+                    <form id="profile-form">
+                        <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
+                            <label for="profile-image-upload" style="cursor: pointer; position: relative;">
+                                <div id="avatar-preview" style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent-color); color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; overflow: hidden; position: relative;">
+                                    <i class="fa-solid fa-user" id="avatar-icon"></i>
+                                    <img id="avatar-image-actual" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                </div>
+                                <div style="position: absolute; bottom: 0; right: 0; background: var(--bg-primary); border: 2px solid var(--bg-secondary); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; color: var(--accent-color); font-size: 0.8rem;">
+                                    <i class="fa-solid fa-camera"></i>
+                                </div>
+                            </label>
+                            <input type="file" id="profile-image-upload" accept="image/*" style="display: none;">
+                            <div>
+                                <h3 style="margin-bottom: 5px;">Profile Picture</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-secondary);">Click the avatar to upload a new image</p>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+                            <div class="form-group">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--text-secondary);">Full Name</label>
+                                <input type="text" id="prof-name" style="width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-primary); color: var(--text-primary); font-size: 0.95rem; transition: var(--transition);">
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--text-secondary);">Email Address</label>
+                                <input type="email" id="prof-email" style="width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-primary); color: var(--text-primary); font-size: 0.95rem; transition: var(--transition);">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--text-secondary);">Default Shipping Address</label>
+                            <textarea id="prof-address" placeholder="123 Beauty Lane, Suite 4...&#10;New York, NY 10001" style="width: 100%; height: 100px; padding: 14px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-primary); color: var(--text-primary); font-size: 0.95rem; font-family: inherit; resize: vertical; transition: var(--transition);"></textarea>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 30px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--text-secondary);">Phone Number</label>
+                            <input type="tel" id="prof-phone" placeholder="(555) 123-4567" style="width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-primary); color: var(--text-primary); font-size: 0.95rem; transition: var(--transition);">
+                        </div>
+
+                        <button type="button" class="btn" onclick="saveProfile()" style="padding: 16px 32px; border-radius: 12px; font-weight: 600; letter-spacing: 0.5px;">Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- Orders List -->
+                <div class="dashboard-card" id="orders">
+                    <h2 style="margin-bottom: 20px;">Recent Orders</h2>
+                    <div id="real-orders-container">
+                        <div class="loader-container"><span class="loader"></span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-layer-group"></i> ShopEase
+                    </a>
+                    <p>Your one-stop shop for premium quality products with an intuitive and seamless shopping experience.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="cart.html">View Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html#shipping-faq">Shipping Policy</a></li>
+                        <li><a href="faq.html#returns-faq">Returns & Exchanges</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="admin.html" style="opacity: 0.6; font-size: 0.8rem; margin-top: 10px; display: inline-block;">Admin Dashboard</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        const user = JSON.parse(localStorage.getItem('shopease_user'));
+        if(!user) {
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('user-name-display').textContent = 'Welcome, ' + user.name.split(' ')[0] + '!';
+            document.getElementById('prof-name').value = user.name;
+            document.getElementById('prof-email').value = user.email;
+            if(user.address) document.getElementById('prof-address').value = user.address;
+            if(user.phone) document.getElementById('prof-phone').value = user.phone;
+            
+            if(user.avatar) {
+                document.getElementById('avatar-image-actual').src = user.avatar;
+                document.getElementById('avatar-image-actual').style.display = 'block';
+                document.getElementById('avatar-icon').style.display = 'none';
+            }
+
+            // Fetch real orders
+            fetchOrders();
+        }
+
+        async function fetchOrders() {
+            const container = document.getElementById('real-orders-container');
+            try {
+                const response = await fetch(`/api/orders/user/${user.id}`);
+                const orders = await response.json();
+                renderOrders(orders, container);
+            } catch (error) {
+                console.error("Order fetch error:", error);
+                container.innerHTML = '<p style="color:var(--danger-color)">Failed to load orders.</p>';
+            }
+        }
+
+        function renderOrders(orders, container) {
+            if (orders.length === 0) {
+                container.innerHTML = '<p style="text-align:center; padding: 20px; color:var(--text-secondary)">You haven\'t placed any orders yet.</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            orders.forEach(order => {
+                const date = new Date(order.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                const orderCard = document.createElement('div');
+                orderCard.className = 'order-card';
+                
+                // Simplified tracker logic
+                const isProcessing = true;
+                const isShipped = order.status === 'Shipped' || order.status === 'Delivered';
+                const isDelivered = order.status === 'Delivered';
+
+                orderCard.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                        <div><strong>Order #${order.id}</strong><br><span style="font-size: 0.9rem; color: var(--text-secondary);">Placed on: ${date}</span></div>
+                        <div style="text-align: right;"><strong>Total: $${order.total.toFixed(2)}</strong></div>
+                    </div>
+                    <div class="tracker">
+                        <div class="track-step ${isProcessing ? 'active' : ''}">
+                            <div class="track-icon"><i class="fa-solid fa-check"></i></div>
+                            <span style="font-size: 0.8rem;">Processing</span>
+                        </div>
+                        <div class="track-step ${isShipped ? 'active' : ''}">
+                            <div class="track-icon"><i class="fa-solid fa-truck"></i></div>
+                            <span style="font-size: 0.8rem;">Shipped</span>
+                        </div>
+                        <div class="track-step ${isDelivered ? 'active' : ''}">
+                            <div class="track-icon"><i class="fa-solid fa-box"></i></div>
+                            <span style="font-size: 0.8rem;">Delivered</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(orderCard);
+            });
+        }
+
+        const imageUpload = document.getElementById('profile-image-upload');
+        if(imageUpload) {
+            imageUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const base64Image = event.target.result;
+                        document.getElementById('avatar-image-actual').src = base64Image;
+                        document.getElementById('avatar-image-actual').style.display = 'block';
+                        document.getElementById('avatar-icon').style.display = 'none';
+                        user.avatar = base64Image;
+                        localStorage.setItem('shopease_user', JSON.stringify(user));
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        async function saveProfile() {
+            const updatedUser = {
+                id: user.id,
+                name: document.getElementById('prof-name').value,
+                email: document.getElementById('prof-email').value,
+                address: document.getElementById('prof-address').value,
+                phone: document.getElementById('prof-phone').value,
+                avatar: user.avatar // avatar is updated in the change listener
+            };
+            
+            try {
+                const response = await fetch(`/api/users/${user.id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedUser)
+                });
+                
+                if (response.ok) {
+                    // Update local storage to match
+                    localStorage.setItem('shopease_user', JSON.stringify(updatedUser));
+                    user.name = updatedUser.name;
+                    user.email = updatedUser.email;
+                    user.address = updatedUser.address;
+                    user.phone = updatedUser.phone;
+                    
+                    document.getElementById('user-name-display').textContent = 'Welcome, ' + user.name.split(' ')[0] + '!';
+                    showToast('Profile updated & synced!', 'success');
+                } else {
+                    showToast('Failed to sync profile', 'error');
+                }
+            } catch (error) {
+                console.error("Profile sync error:", error);
+                showToast('Server connection failed', 'error');
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('shopease_user');
+            window.location.href = 'index.html';
+        }
+        window.logoutUser = logoutUser;
+    </script>
+</body>
+</html>

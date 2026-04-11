@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .about-section {
+            padding: 80px 0;
+            background: var(--bg-secondary);
+            border-radius: 40px;
+            margin: 40px 0;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            animation: blurIn 1s ease-out;
+            overflow: hidden;
+            position: relative;
+        }
+        .about-section::after {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+            z-index: 0;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .about-image {
+            position: relative;
+        }
+        .about-image img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: var(--card-shadow-hover);
+            transition: var(--transition);
+        }
+        .about-image:hover img {
+            transform: scale(1.02) rotate(-1deg);
+        }
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            border-left: 5px solid var(--accent-color);
+            border-top: 5px solid var(--accent-color);
+            border-radius: 20px 0 0 0;
+            z-index: -1;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 50px;
+        }
+        .stat-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: var(--card-shadow);
+        }
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
+        .stat-card p {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+        @media(max-width: 900px) {
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .stat-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-layer-group"></i> ShopEase
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li id="auth-nav-item"><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="about-section">
+            <div class="container" style="padding: 0 40px;">
+                <div class="about-grid">
+                    <div class="about-content">
+                        <h1 style="font-size: 3rem; margin-bottom: 20px;">Our Story</h1>
+                        <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 25px;">
+                            Founded in 2026, ShopEase began with a simple vision: to bridge the gap between premium quality and accessible luxury. We believe that everyone deserves to feel beautiful and confident in their own skin.
+                        </p>
+                        <p style="font-size: 1.1rem; color: var(--text-secondary);">
+                            Our team of experts carefully curates every product in our collection, ensuring that they meet the highest standards of safety, efficacy, and sustainability. We're not just a shop; we're a community dedicated to mindful beauty.
+                        </p>
+                        
+                        <div class="stat-grid">
+                            <div class="stat-card">
+                                <h3>50k+</h3>
+                                <p>Customers</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>100+</h3>
+                                <p>Brands</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>24/7</h3>
+                                <p>Support</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=800" alt="About ShopEase">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-layer-group"></i> ShopEase
+                    </a>
+                    <p>Your one-stop shop for premium quality products with an intuitive and seamless shopping experience.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="about.html" style="color: var(--accent-color);">About Us</a></li>
+                        <li><a href="cart.html">View Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html#shipping-faq">Shipping Policy</a></li>
+                        <li><a href="faq.html#returns-faq">Returns & Exchanges</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Review your ShopEase cart before finalizing your secure checkout.">
+    <title>Your Cart | ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-layer-group"></i> ShopEase
+            </a>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="cart.html" style="color: var(--accent-color);">Cart</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <button class="icon-btn" id="theme-toggle" title="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="cart.html" class="icon-btn" title="View Cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container" style="animation: blurIn 0.8s ease;">
+        <h1 style="margin-top: 40px; font-size: 3rem; letter-spacing: -1px; margin-bottom: 20px;">Shopping Cart</h1>
+        
+        <div class="cart-layout">
+            <!-- Left Side: Items -->
+            <div style="overflow-x: auto;">
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items-container">
+                        <!-- Populated via cart.js -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Right Side: Order Summary -->
+            <div class="cart-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="order-subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="order-shipping">$0.00</span>
+                </div>
+                <div class="summary-row" style="color: var(--success-color);">
+                    <span>Discount</span>
+                    <span id="order-discount">$0.00</span>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="coupon-input" placeholder="Coupon Code (e.g. SHOPEASE10)" style="flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; background: var(--bg-primary); color: var(--text-primary);">
+                        <button class="btn" style="padding: 10px 20px;" onclick="applyCoupon()">Apply</button>
+                    </div>
+                    <div id="coupon-msg" style="font-size: 0.9rem; margin-top: 5px;"></div>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span id="order-total">$0.00</span>
+                </div>
+                <button class="btn" onclick="processCheckout()" style="width: 100%; margin-top: 20px; font-size: 1.1rem; padding: 15px;">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-layer-group"></i> ShopEase
+                    </a>
+                    <p>Your one-stop shop for premium quality products with an intuitive and seamless shopping experience.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="cart.html">View Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="faq.html#shipping-faq">Shipping Policy</a></li>
+                        <li><a href="faq.html#returns-faq">Returns & Exchanges</a></li>
+                        <li><a href="faq.html">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShopEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>
