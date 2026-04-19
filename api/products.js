@@ -6,7 +6,8 @@ const mockProducts = [
 ];
 
 module.exports = (req, res) => {
+    res.statusCode = 200;
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(mockProducts);
+    res.end(JSON.stringify(mockProducts));
 };
