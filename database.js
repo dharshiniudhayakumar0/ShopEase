@@ -1,7 +1,8 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const dbPath = process.env.DATABASE_PATH || path.resolve(__dirname, 'shopease.db');
+const isVercel = process.env.VERCEL === '1';
+const dbPath = process.env.DATABASE_PATH || (isVercel ? path.join('/tmp', 'shopease.db') : path.resolve(__dirname, 'shopease.db'));
 const db = new sqlite3.Database(dbPath);
 
 const categories = ['face', 'eyes', 'lips', 'skincare'];

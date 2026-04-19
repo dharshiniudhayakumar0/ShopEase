@@ -171,11 +171,18 @@ app.use((req, res) => {
     }
 });
 
-// Start Server
-initDb().then(() => {
-    app.listen(PORT, () => {
-        console.log(`\n🚀 ShopEase Server running at http://localhost:${PORT}`);
-        console.log(`📦 Database: SQLite (shopease.db)`);
-        console.log(`🌐 Static Files: Served from root\n`);
+// Start Server (Only if not in Vercel)
+if (process.env.VERCEL !== '1') {
+    initDb().then(() => {
+        app.listen(PORT, () => {
+            console.log(`\n🚀 ShopEase Server running at http://localhost:${PORT}`);
+            console.log(`📦 Database: SQLite (shopease.db)`);
+            console.log(`🌐 Static Files: Served from root\n`);
+        });
     });
-});
+} else {
+    // On Vercel, we still need to initialize the DB on startup
+    initDb().catch(err => console.error("Database initialization error:", err));
+}
+
+module.exports = app;
