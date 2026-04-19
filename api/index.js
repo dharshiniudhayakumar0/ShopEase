@@ -1,14 +1,29 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const path = require('path');
 const app = express();
 
-// Mock Data for Demo (Since SQLite is failing on Vercel)
+// Mock Data for Demo
 const mockProducts = [
     { id: 1, title: "Radiant Liquid Foundation", price: 24.99, category: "face", rating: 4.8, image: "https://images.unsplash.com/photo-1599305090598-fe179d501227?auto=format&fit=crop&q=80&w=600", description: "Experience the luxury of our Radiant Liquid Foundation." },
     { id: 2, title: "Velvet Matte Lipstick", price: 18.50, category: "lips", rating: 4.5, image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&q=80&w=600", description: "Perfect matte finish for all day wear." }
 ];
+
+// Mock Database Object to prevent ReferenceErrors on other endpoints
+const db = {
+    all: (q, p, cb) => {
+        const callback = typeof p === 'function' ? p : cb;
+        callback(null, mockProducts);
+    },
+    run: (q, p, cb) => {
+        const callback = typeof p === 'function' ? p : cb;
+        if (callback) callback(null);
+    },
+    get: (q, p, cb) => {
+        const callback = typeof p === 'function' ? p : cb;
+        callback(null, null);
+    }
+};
 
 // Middleware
 app.use(cors());
