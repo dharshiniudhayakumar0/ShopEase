@@ -2,9 +2,8 @@
   "name": "shopease",
   "version": "1.0.0",
   "description": "",
-  "main": "cart.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
