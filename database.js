@@ -1,11 +1,10 @@
 let sqlite3;
-try {
-    sqlite3 = require('sqlite3').verbose();
-} catch (e) {
-    console.error("FATAL ERROR: Could NOT require sqlite3 native module!");
-    console.error(e);
-    // On Vercel, this is a common failure point for native modules
-}
+// try {
+//     sqlite3 = require('sqlite3').verbose();
+// } catch (e) {
+//     console.error("FATAL ERROR: Could NOT require sqlite3 native module!");
+//     console.error(e);
+// }
 
 const isVercel = process.env.VERCEL === '1';
 const dbPath = process.env.DATABASE_PATH || (isVercel ? path.join('/tmp', 'shopease.db') : path.resolve(__dirname, 'shopease.db'));
