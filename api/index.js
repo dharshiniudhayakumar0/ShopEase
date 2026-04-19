@@ -16,13 +16,8 @@ app.use(express.json());
 app.get('/api/health', (req, res) => res.json({ status: 'ok', source: 'unified-api' }));
 app.get('/api/products', (req, res) => res.json(mockProducts));
 
-// Static Files (Serve from root)
-app.use(express.static(path.join(__dirname, '..')));
-
-// Catch-all for Frontend (SPA support)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'index.html'));
-});
+// NOTE: We do NOT use express.static or res.sendFile here.
+// Vercel serves the root static files natively from the root directory.
 
 // For Vercel, we export the app
 module.exports = app;
