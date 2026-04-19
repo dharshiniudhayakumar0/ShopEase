@@ -2,5 +2,8 @@
   "name": "shopease",
   "version": "1.0.0",
   "description": "Premium E-commerce Beauty Shop",
+  "scripts": {
+    "build": "echo 'No build required'"
+  },
   "dependencies": {}
 }
