@@ -2,7 +2,11 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/api/(.*)",
+      "source": "/api/products",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api/auth/(.*)",
       "destination": "/api/index.js"
     }
   ]
