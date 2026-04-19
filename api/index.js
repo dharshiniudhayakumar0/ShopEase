@@ -2,15 +2,22 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { db, initDb } = require('./database');
+const { db, initDb } = require('../database');
 
 const app = express();
-const PORT = process.env.PORT || 8000;
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname))); // Serve all local files
+
+// Health Check (NO DATABASE)
+app.get('/api/health', (req, res) => {
+    res.json({ 
+        status: 'ok', 
+        time: new Date().toISOString(),
+        env: process.env.VERCEL ? 'vercel' : 'local'
+    });
+});
 
 // API Endpoints
 
@@ -162,26 +169,18 @@ app.get('/api/admin/stats', (req, res) => {
     });
 });
 
-// Handle 404 for pages (Redirect to index)
-app.use((req, res) => {
-    if (!req.url.startsWith('/api')) {
-        res.sendFile(path.join(__dirname, 'index.html'));
-    } else {
-        res.status(404).json({ error: "API route not found" });
-    }
-});
-
 // Start Server (Only if not in Vercel)
 if (process.env.VERCEL !== '1') {
     initDb().then(() => {
+        const PORT = process.env.PORT || 8000;
         app.listen(PORT, () => {
             console.log(`\n🚀 ShopEase Server running at http://localhost:${PORT}`);
-            console.log(`📦 Database: SQLite (shopease.db)`);
-            console.log(`🌐 Static Files: Served from root\n`);
         });
     });
 } else {
-    // On Vercel, we still need to initialize the DB on startup
+    // On Vercel, initialize the DB but don't call listen
+    // We do this lazily or wait for it? 
+    // For now, let's keep the initialization call but handle its errors.
     initDb().catch(err => console.error("Database initialization error:", err));
 }
 

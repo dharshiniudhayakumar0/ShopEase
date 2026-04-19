@@ -1,9 +1,29 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+let sqlite3;
+try {
+    sqlite3 = require('sqlite3').verbose();
+} catch (e) {
+    console.error("FATAL ERROR: Could NOT require sqlite3 native module!");
+    console.error(e);
+    // On Vercel, this is a common failure point for native modules
+}
 
 const isVercel = process.env.VERCEL === '1';
 const dbPath = process.env.DATABASE_PATH || (isVercel ? path.join('/tmp', 'shopease.db') : path.resolve(__dirname, 'shopease.db'));
-const db = new sqlite3.Database(dbPath);
+
+let db;
+if (sqlite3) {
+    db = new sqlite3.Database(dbPath);
+    console.log(`Database connected: ${dbPath}`);
+} else {
+    // Mock DB if sqlite3 fails to load (prevents crash, but API will fail with error)
+    db = { 
+        all: (q, p, cb) => cb(new Error("Database native module failed to load")),
+        run: (q, p, cb) => (cb ? cb(new Error("Database native module failed to load")) : null),
+        get: (q, p, cb) => cb(new Error("Database native module failed to load")),
+        serialize: (cb) => cb(),
+        prepare: () => ({ run: () => {}, finalize: () => {} })
+    };
+}
 
 const categories = ['face', 'eyes', 'lips', 'skincare'];
 const adjectives = ["Radiant", "Flawless", "Velvet", "Luminous", "Matte", "Hydrating", "Glow", "Sunset", "Nourishing", "High-Shine", "Silky", "Vibrant", "Sheer", "Intense", "Soft"];
