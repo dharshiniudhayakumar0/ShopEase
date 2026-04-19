@@ -2,9 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { db, initDb } = require('../database');
-
 const app = express();
+
+// Mock Data for Demo (Since SQLite is failing on Vercel)
+const mockProducts = [
+    { id: 1, title: "Radiant Liquid Foundation", price: 24.99, category: "face", rating: 4.8, image: "https://images.unsplash.com/photo-1599305090598-fe179d501227?auto=format&fit=crop&q=80&w=600", description: "Experience the luxury of our Radiant Liquid Foundation." },
+    { id: 2, title: "Velvet Matte Lipstick", price: 18.50, category: "lips", rating: 4.5, image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&q=80&w=600", description: "Perfect matte finish for all day wear." }
+];
 
 // Middleware
 app.use(cors());
@@ -40,10 +44,7 @@ app.get('/api/products', (req, res) => {
     else if (sort === 'price-high') query += " ORDER BY price DESC";
     else query += " ORDER BY id DESC";
 
-    db.all(query, params, (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
+    res.json(mockProducts);
 });
 
 app.post('/api/products', (req, res) => {
@@ -171,17 +172,10 @@ app.get('/api/admin/stats', (req, res) => {
 
 // Start Server (Only if not in Vercel)
 if (process.env.VERCEL !== '1') {
-    initDb().then(() => {
-        const PORT = process.env.PORT || 8000;
-        app.listen(PORT, () => {
-            console.log(`\n🚀 ShopEase Server running at http://localhost:${PORT}`);
-        });
+    const PORT = process.env.PORT || 8000;
+    app.listen(PORT, () => {
+        console.log(`\n🚀 ShopEase Server running at http://localhost:${PORT}`);
     });
-} else {
-    // On Vercel, initialize the DB but don't call listen
-    // We do this lazily or wait for it? 
-    // For now, let's keep the initialization call but handle its errors.
-    initDb().catch(err => console.error("Database initialization error:", err));
 }
 
 module.exports = app;
