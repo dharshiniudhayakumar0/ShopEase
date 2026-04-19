@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "name": "shopease",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/products",
+      "destination": "/api/products.js"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api/health.js"
+    },
+    {
+      "source": "/api/auth",
+      "destination": "/api/auth.js"
+    }
+  ]
+}

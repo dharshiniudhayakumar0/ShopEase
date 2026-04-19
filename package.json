@@ -1,0 +1,9 @@
+{
+  "name": "shopease",
+  "version": "1.0.0",
+  "description": "Premium E-commerce Beauty Shop",
+  "scripts": {
+    "start": "node api/health.js"
+  },
+  "dependencies": {}
+}
